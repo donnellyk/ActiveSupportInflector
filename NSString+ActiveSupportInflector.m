@@ -26,4 +26,22 @@
   return [inflector singularize:self];
 }
 
+- (BOOL)isSingular {
+    static ActiveSupportInflector *inflector = nil;
+    if (!inflector) {
+        inflector = [[ActiveSupportInflector alloc] init];
+    }
+    
+    return [inflector isSingular:self];
+
+}
+- (BOOL)isPlural {
+    static ActiveSupportInflector *inflector = nil;
+    if (!inflector) {
+        inflector = [[ActiveSupportInflector alloc] init];
+    }
+    
+    return [inflector isPlural:self];
+}
+
 @end
