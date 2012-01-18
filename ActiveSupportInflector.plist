@@ -72,6 +72,26 @@
 			"(quiz)$",
 			"$1zes",
 		),
+		(
+			"zoon$",
+			"$zoa",
+		),
+		(
+			"lion$",
+			lia,
+		),
+		(
+			"dex$",
+			dices,
+		),
+		(
+			"pus$",
+			puses,
+		),
+		(
+			"lus$",
+			li,
+		),
 	);
 	singularRules = (
 		(
@@ -195,6 +215,18 @@
 		(
 			database,
 			databases,
+		),
+		(
+			foot,
+			feet,
+		),
+		(
+			tooth,
+			teeth,
+		),
+		(
+			mythos,
+			mythoi,
 		),
 	);
 	uncountableWords = (
