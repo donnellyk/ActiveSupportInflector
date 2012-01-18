@@ -20,4 +20,8 @@
 - (NSString*)pluralize:(NSString*)string;
 - (NSString*)singularize:(NSString*)string;
 
+- (BOOL)isSingular:(NSString*)word;
+- (BOOL)isPlural:(NSString*)word;
+
+
 @end

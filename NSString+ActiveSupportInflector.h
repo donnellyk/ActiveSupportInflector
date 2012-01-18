@@ -8,4 +8,7 @@
 - (NSString *)pluralizeString;
 - (NSString *)singularizeString;
 
+- (BOOL)isSingular;
+- (BOOL)isPlural;
+
 @end

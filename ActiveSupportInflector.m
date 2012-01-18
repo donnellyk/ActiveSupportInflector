@@ -100,6 +100,18 @@
   return [self _applyInflectorRules:singularRules toString:plural];
 }
 
+-(BOOL)isPlural:(NSString*)word {
+    NSString *mod = [self _applyInflectorRules:pluralRules toString:word];
+    
+    return [mod isEqualToString:word];
+}
+
+-(BOOL)isSingular:(NSString*)word {
+    NSString *mod = [self _applyInflectorRules:singularRules toString:word];
+    
+    return [mod isEqualToString:word];
+}
+
 - (NSString*)_applyInflectorRules:(NSArray*)rules toString:(NSString*)string {
   if ([uncountableWords containsObject:string]) {
     return string;
