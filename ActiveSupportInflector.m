@@ -55,21 +55,23 @@
 }
 
 - (void)addInflectionsFromDictionary:(NSDictionary*)dictionary {
-  for (NSArray* pluralRule in [dictionary objectForKey:@"pluralRules"]) {
-    [self addPluralRuleFor:[pluralRule objectAtIndex:0] replacement:[pluralRule objectAtIndex:1]];
-  }
+
+    
+    for (NSArray* pluralRule in [dictionary objectForKey:@"pluralRules"]) {
+        [self addPluralRuleFor:[pluralRule objectAtIndex:0] replacement:[pluralRule objectAtIndex:1]];
+    }
   
-  for (NSArray* singularRule in [dictionary objectForKey:@"singularRules"]) {
-    [self addSingularRuleFor:[singularRule objectAtIndex:0] replacement:[singularRule objectAtIndex:1]];
-  }
-  
-  for (NSArray* irregularRule in [dictionary objectForKey:@"irregularRules"]) {
-    [self addIrregularRuleForSingular:[irregularRule objectAtIndex:0] plural:[irregularRule objectAtIndex:1]];
-  }
-  
-  for (NSString* uncountableWord in [dictionary objectForKey:@"uncountableWords"]) {
-    [self addUncountableWord:uncountableWord];
-  }
+    for (NSArray* singularRule in [dictionary objectForKey:@"singularRules"]) {
+        [self addSingularRuleFor:[singularRule objectAtIndex:0] replacement:[singularRule objectAtIndex:1]];
+    }
+    
+    for (NSArray* irregularRule in [dictionary objectForKey:@"irregularRules"]) {
+        [self addIrregularRuleForSingular:[irregularRule objectAtIndex:0] plural:[irregularRule objectAtIndex:1]];
+    }
+    
+    for (NSString* uncountableWord in [dictionary objectForKey:@"uncountableWords"]) {
+        [self addUncountableWord:uncountableWord];
+    }
 }
 
 - (void)addUncountableWord:(NSString*)string {
@@ -119,14 +121,28 @@
   else {
     for (ActiveSupportInflectorRule* rule in rules) {
       NSRange range = NSMakeRange(0, [string length]);
-      NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:[rule rule] options:0 error:nil];
+      NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:[rule rule] options:NSRegularExpressionCaseInsensitive error:nil];
       if ([regex firstMatchInString:string options:0 range:range]) {
         // NSLog(@"rule: %@, replacement: %@", [rule rule], [rule replacement]);
-        return [regex stringByReplacingMatchesInString:string options:0 range:range withTemplate:[rule replacement]];
+        return  [self correctCapitalizationforString:[regex stringByReplacingMatchesInString:string options:0 range:range withTemplate:[rule replacement]] 
+                                        fromOriginal:string];
       }
     }
     return string;
   }  
+}
+
+- (NSString *)correctCapitalizationforString:(NSString *)string fromOriginal:(NSString *)original {
+    NSString *firstChar = [original substringWithRange:NSMakeRange(0, 1)];
+    
+    if ([firstChar isEqualToString:[firstChar capitalizedString]]) {  //Word is capitalzied
+        string = [string stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:[firstChar capitalizedString]];
+    }
+    
+    if ([original isEqualToString:[original capitalizedString]]) { //Entire word is upper case;
+        string = [string uppercaseString];
+    }
+    return string;
 }
 
 - (void)dealloc {

@@ -23,5 +23,7 @@
 - (BOOL)isSingular:(NSString*)word;
 - (BOOL)isPlural:(NSString*)word;
 
+- (NSString *)correctCapitalizationforString:(NSString *)string fromOriginal:(NSString *)original;
+
 
 @end
